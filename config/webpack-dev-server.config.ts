@@ -3,7 +3,6 @@ const devServerConf = () => {
     return {
         contentBase: config.dist,
         disableHostCheck: true,
-        hot: true,
         public: `${config.ip}:${config.serverPort}`,
     };
 }
