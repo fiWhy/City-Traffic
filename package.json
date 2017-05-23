@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "setup": "npm i -g typescript node-sass karma-cli ts-node",
+    "c9": "NODE_ENV=development npm run serve",
     "serve": "ts-node ./tasks/webpack-server.ts",
     "build": "ts-node ./tasks/webpack.ts",
     "start": "npm run serve",

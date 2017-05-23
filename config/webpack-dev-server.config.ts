@@ -1,10 +1,10 @@
 import { config } from "./main.config";
 const devServerConf = () => {
     return {
-        colors: true,
-        contentBase: config.src,
-        historyApiFallback: true,
-        inline: true,
-    }
+        contentBase: config.dist,
+        disableHostCheck: true,
+        hot: true,
+        public: `${config.ip}:${config.serverPort}`,
+    };
 }
-export const devServerConfig = devServerConf();
+export const webpackDevServerConfig = devServerConf();
