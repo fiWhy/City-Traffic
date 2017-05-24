@@ -19,10 +19,6 @@ const webpackPluginsFnc = (karma: boolean = false): any => {
                 NODE_ENV: JSON.stringify(config.env)
             }
         }),
-        new webpack.ProvidePlugin({
-            $: "jquery",
-            jQuery: "jquery",
-        }),
         new ExtractTextPlugin({
             filename: "style.css",
         }),

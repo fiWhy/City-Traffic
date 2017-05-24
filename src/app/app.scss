@@ -1,0 +1,23 @@
+@import "./assets/scss/styles.scss";
+._md-nav-button-text {
+    color: #fff;
+}
+
+[ng-cloak] {
+    display: none;
+}
+
+html,
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+
+.wrapper {
+    #content {
+        overflow: hidden;
+    }
+}

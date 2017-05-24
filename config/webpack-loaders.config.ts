@@ -5,7 +5,12 @@ export const loaders = (karma: boolean = false) => {
 
     const styleUseArray = [
         { loader: 'css-loader' },
-        { loader: 'postcss-loader' },
+        {
+            loader: 'postcss-loader',
+            options: {
+                autoprefixer: true,
+            },
+        },
         {
             loader: 'sass-loader',
             options: {
