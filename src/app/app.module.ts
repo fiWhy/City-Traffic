@@ -12,6 +12,7 @@ import "./app.scss";
 angular.module("app", [
     "ngMaterial",
     "ngMdIcons",
+    "ngMap",
     StatesModule.name,
 ])
     .config(materialConfig)
