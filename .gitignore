@@ -7,3 +7,5 @@ src/app/core/key.constants.ts
 .vs
 .vscode
 config/keys.config.ts
+blind
+example*
