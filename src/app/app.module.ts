@@ -1,7 +1,7 @@
 import * as angular from "angular";
 
 import { App } from "./app.component";
-import { TopBar } from "./components";
+import { TopBar, SideNav } from "./components";
 
 import { materialConfig } from "./config";
 
@@ -17,6 +17,7 @@ angular.module("app", [
 ])
     .config(materialConfig)
     .component(TopBar.selector, TopBar)
-    .component(App.selector, App);
+    .component(App.selector, App)
+    .component(SideNav.selector, SideNav);
 
 angular.bootstrap(document.getElementById("app"), ["app"]);
