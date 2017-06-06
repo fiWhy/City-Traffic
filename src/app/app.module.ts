@@ -5,6 +5,7 @@ import { TopBar, SideNav } from "./components";
 import { materialConfig, routesConfig } from "./config";
 
 import { StatesModule } from "./states";
+import { SharedModule } from "./shared";
 
 import { routes } from "./app.route";
 
@@ -13,6 +14,7 @@ angular.module("app", [
     "ngMaterial",
     "ngMdIcons",
     "ngMap",
+    SharedModule.name,
     StatesModule.name,
 ])
     .config(routes)

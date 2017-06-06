@@ -7,4 +7,4 @@ import { routes } from "./dashboard.route";
 
 export const DashboardModule: ng.IModule = angular.module("app.states.dashboard", [])
     .config(routes)
-    .component(TrafficMap.selector, TrafficMap)
+    .component(TrafficMap.selector, TrafficMap);
