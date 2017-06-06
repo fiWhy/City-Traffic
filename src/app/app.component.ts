@@ -1,3 +1,4 @@
+import "./app.scss";
 export class AppController {
     static $inject = ["$rootScope"];
     private leftSideNavId: string = "leftNav";
