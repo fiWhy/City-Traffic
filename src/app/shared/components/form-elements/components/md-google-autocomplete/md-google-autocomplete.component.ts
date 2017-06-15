@@ -17,6 +17,41 @@ class MdGoogleAutocompleteController implements ng.IController {
         private $scope: ng.IScope, ) {
     }
 
+    private selectedItemChange() {
+        this.ngModel = this.selectedItem;
+    }
+
+    private getQueryResults() {
+        const result = this.searchText !== this.oldSearchText ? this.searchTextChange() : Promise.resolve(this.queryResults);
+        this.oldSearchText = this.searchText;
+        return result;
+    }
+
+    private searchTextChange(): Promise<google.maps.places.QueryAutocompletePrediction[] | any[]> {
+        if (!this.searchText) {
+            return Promise.resolve([]);
+        } else {
+            return this.MdGoogleAutocompleteService.search(this.searchText, this.location, this.radius, this.bounds)
+                .then((data) => {
+                    if (!data) {
+                        return this.queryResults = [];
+                    } else {
+                        return this.queryResults = this.adaptingAddresses(data);
+                    }
+                }).catch((err) => {
+                    return [];
+                });
+        }
+    }
+
+      private adaptingAddresses(data: google.maps.places.QueryAutocompletePrediction[]): google.maps.places.QueryAutocompletePrediction[] {
+        return map(data, (result) => {
+            return Object.assign({}, result, {
+                formatted_address: result.description
+            });
+        });
+    }
+
 }
 
 export const MdGoogleAutocomplete = {

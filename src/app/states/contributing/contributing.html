@@ -7,9 +7,7 @@
         <div flex layout="row">  
             <md-google-autocomplete flex 
                                     place-change="Contributing.pointChanged('startPoint', place)" 
-                                    bounds="Contributing.AuthProvider.currentUser.location.bounds"
                                     required="true"
-                                    current-location="Contributing.AuthProvider.currentUser.location.location"
                                     on-error="Contributing.handleError(error)"
                                     ng-model="Contributing.contributeFormData.startPoint"
                 class="md-block" placeholder="Start point"></md-google-autocomplete>
