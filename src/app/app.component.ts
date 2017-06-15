@@ -1,13 +1,15 @@
 
 import { AppService } from "./app.service";
+import { ToastService } from "./core/services";
 
 import "./app.scss";
 export class AppController {
-    static $inject = ["$rootScope", "AppService"];
+    static $inject = ["$rootScope", "AppService", "ToastService"];
     private leftSideNavId: string = "leftNav";
     constructor(
         private $rootScope: ng.IScope,
-        private AppService: AppService
+        private AppService: AppService,
+        private ToastService: ToastService
     ) {
         this.getCurrentCoordinates();
      }
@@ -15,9 +17,9 @@ export class AppController {
      private getCurrentCoordinates() {
          this.AppService.findCoordinates()
             .then((city) => {
-                alert(city.formatted_address);
+                this.ToastService.showSimple(city.formatted_address);
             }).catch((error) => {
-                alert(error);
+                this.ToastService.showSimple(error);
             })
      }
 }
