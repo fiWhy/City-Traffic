@@ -4,12 +4,22 @@
             <md-time-picker flex ng-model="Contributing.contributeFormData.startTime" md-placeholder="Day starting"></md-datepicker>
                 <md-time-picker flex ng-model="Contributing.contributeFormData.endTime" md-placeholder="Day ending"></md-datepicker>
         </div>
-        <div flex layout="row">
-            <input type="text" placeholder="Point">
+        <div flex layout="row">  
+            <md-google-autocomplete flex 
+                                    place-change="Contributing.pointChanged('startPoint', place)" 
+                                    required="true"
+                                    on-error="Contributing.handleError(error)"
+                                    ng-model="Contributing.contributeFormData.startPoint"
+                class="md-block" placeholder="Start point"></md-google-autocomplete>
         </div>
 
-        <div ng-repeat="point in Contributing.contributeFormData.additional track by $index" flex layout="row">
-            <input type="text" placeholder="Additional point">
+        <div class="additional-point-contributing" ng-repeat="point in Contributing.contributeFormData.additional track by $index" flex layout="row">
+            <md-google-autocomplete flex 
+                                    place-change="Contributing.pointChanged('additional', place)" 
+                                    required="true"
+                                    on-error="Contributing.handleError(error)"
+                                    ng-model="Contributing.contributeFormData.additional[$index]">
+            </md-google-autocomplete>
             <md-button class="md-fab md-mini" ng-click="Contributing.removeAdditionalPoint($index)" aria-label="Remove point">
                 <md-icon md-svg-icon="cancel-white"></md-icon>
             </md-button>
@@ -24,8 +34,12 @@
             </md-button>
         </div>
 
-        <div flex layout="row">
-            <input type="text" placeholder="Point">
+        <div flex layout="row">   
+             <md-google-autocomplete flex 
+                                    place-change="Contributing.pointChanged('endPoint', place)" 
+                                    required="true" 
+                                    ng-model="Contributing.contributeFormData.endPoint"
+                class="md-block" placeholder="End point"></md-google-autocomplete>
         </div>
     </form>
     <md-button ng-if="Contributing.AuthProvider.currentUser.location" class="md-fab md-fab-bottom-right" ng-click="Contributing.contribute()"

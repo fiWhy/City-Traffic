@@ -1,6 +1,7 @@
 import { ContributingService } from "./contributing.service";
 import { GeoService } from "../../core/services";
 
+import "./contributing.scss";
 
 export interface IFormData {
     title: string;
