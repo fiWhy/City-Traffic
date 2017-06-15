@@ -1,0 +1,38 @@
+<md-content flex layout-padding>
+    <form name="contributing" ng-submit="contributing.$valid && Contributing.contribute()">
+        <div flex layout="row">
+            <md-time-picker flex ng-model="Contributing.contributeFormData.startTime" md-placeholder="Day starting"></md-datepicker>
+                <md-time-picker flex ng-model="Contributing.contributeFormData.endTime" md-placeholder="Day ending"></md-datepicker>
+        </div>
+        <div flex layout="row">
+            <input type="text" placeholder="Point">
+        </div>
+
+        <div ng-repeat="point in Contributing.contributeFormData.additional track by $index" flex layout="row">
+            <input type="text" placeholder="Additional point">
+            <md-button class="md-fab md-mini" ng-click="Contributing.removeAdditionalPoint($index)" aria-label="Remove point">
+                <md-icon md-svg-icon="cancel-white"></md-icon>
+            </md-button>
+        </div>
+
+        <div class="additional-separator">
+            <md-button class="md-fab md-mini" ng-click="Contributing.addAdditionalPoint()" aria-label="Find on map">
+                <md-icon md-svg-src="add-white"></md-icon>
+                <md-tooltip>
+                    Add point
+                </md-tooltip>
+            </md-button>
+        </div>
+
+        <div flex layout="row">
+            <input type="text" placeholder="Point">
+        </div>
+    </form>
+    <md-button ng-if="Contributing.AuthProvider.currentUser.location" class="md-fab md-fab-bottom-right" ng-click="Contributing.contribute()"
+        ;>
+        <md-icon md-svg-src="add-white"></md-icon>
+        <md-tooltip>
+            Contribute
+        </md-tooltip>
+    </md-button>
+</md-content>

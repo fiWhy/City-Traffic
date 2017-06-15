@@ -8,6 +8,10 @@ class NavBarController implements ng.IController {
     constructor(public NavBarService: NavBarService, private $state: ng.ui.IStateService) {
         this.menuItems = NavBarService.fetchMenuItems();
     }
+    
+    goTo(link: string) {
+        this.$state.go(link);
+    }
 }
 export const NavBar = {
     selector: "navBar",
