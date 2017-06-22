@@ -15,7 +15,7 @@ const configFnc = () => {
     const entry = src + "/main.ts";
     const dist = root("./dist");
     const vendor = [
-        src + "/polyfills.ts",
+        src + "/vendor.ts",
     ];
     const env = "development";
 

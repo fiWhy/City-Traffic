@@ -39,7 +39,7 @@ export class GeoService {
     public askGeocoder(options: google.maps.GeocoderRequest, types?: string[]): Promise<google.maps.GeocoderResult[]> {
         return new Promise((resolve, reject) => {
             this.geocoderService.geocode(options, (results: google.maps.GeocoderResult[], status: google.maps.GeocoderStatus) => {
-                if (this.geocodeErrorStatuses.has(status)|| !results.length) {
+                if (this.geocodeErrorStatuses.has(status) || !results.length) {
                     reject(results);
                 } else {
                     const chosenAdddresses = this.chooseLocationByType(results, types);

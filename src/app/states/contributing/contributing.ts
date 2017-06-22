@@ -27,6 +27,7 @@ export class Contributing {
     }
 
     public contribute() {
+
     }
 
     private pointChanged(pointKey: string, point: google.maps.GeocoderResult) {

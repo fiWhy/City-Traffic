@@ -23,7 +23,7 @@ export class MdGoogleAutocompleteService {
                     resolve(result);
                 }
             });
-        })
+        });
     }
 
     private prepareSearchOptions(input: string,

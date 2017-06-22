@@ -12,16 +12,16 @@ export class AppController {
         private ToastService: ToastService
     ) {
         this.getCurrentCoordinates();
-     }
+    }
 
-     private getCurrentCoordinates() {
-         this.AppService.findCoordinates()
+    private getCurrentCoordinates() {
+        this.AppService.findCoordinates()
             .then((city) => {
                 this.ToastService.showSimple(city.formatted_address);
             }).catch((error) => {
                 this.ToastService.showSimple(error);
-            })
-     }
+            });
+    }
 }
 
 export const App = {
