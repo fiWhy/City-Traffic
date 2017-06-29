@@ -18,6 +18,7 @@ export class AppController {
         this.AppService.findCoordinates()
             .then((city) => {
                 this.ToastService.showSimple(city.formatted_address);
+                this.AppService.saveCityToUser(city);
             }).catch((error) => {
                 this.ToastService.showSimple(error);
             });

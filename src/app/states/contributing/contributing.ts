@@ -1,5 +1,6 @@
 import { ContributingService } from "./contributing.service";
 import { GeoService, ToastService } from "../../core/services";
+import { IAuthProvider } from "../../core/providers";
 
 import "./contributing.scss";
 
@@ -11,10 +12,11 @@ export interface IFormData {
 }
 
 export class Contributing {
-    static $inject = ["ContributingService", "GeoService", "ToastService", "$state"];
+    static $inject = ["ContributingService", "AuthProvider", "GeoService", "ToastService", "$state"];
     public contributeFormData: IFormData;
     public currentLocation: google.maps.LatLng;
     constructor(private ContributingService: ContributingService,
+        private AuthProvider: IAuthProvider,
         private GeoService: GeoService,
         private ToastService: ToastService,
         private $state: ng.ui.IStateService) {

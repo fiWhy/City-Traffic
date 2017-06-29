@@ -11,7 +11,29 @@ export class AppService {
 
     findCoordinates() {
         return this.GeoService.getCurrentCoordinates()
-            .then((pos: Position) => this.GeoService.getCity(pos));
+            .then((pos: Position) => this.GeoService.getCity(pos))
+    }
+
+    saveCityToUser(city: google.maps.GeocoderResult) {
+        if (this.user) {
+            const latLng = city.geometry.location;
+            const sw = city.geometry.bounds.getSouthWest();
+            const ne = city.geometry.bounds.getNorthEast();
+            const updates = {
+                location: {
+                    location: { lat: latLng.lat(), lng: latLng.lng() },
+                    bounds: {
+                        sw: { lat: sw.lat(), lng: sw.lng() },
+                        ne: { lat: ne.lat(), lng: ne.lng() },
+                    },
+                },
+                placeId: city.place_id,
+            };
+            Object.assign(this.user, updates);
+            Object.assign(this.user, new User(this.user));
+        } else {
+            return;
+        }
     }
 
     authenticate() {
