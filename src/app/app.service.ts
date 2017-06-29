@@ -1,10 +1,11 @@
 import { GeoService, ToastService } from "./core/services";
-import { IAuthProvider } from "./core/providers";
+import { IAuthProvider, IRequestProvider } from "./core/providers";
 import { User } from "./core/entities/user";
 
 export class AppService {
-    static $inject = ["AuthProvider", "GeoService", "CoreConstants", "ToastService"];
+    static $inject = ["AuthProvider", "RequestProvider", "GeoService", "CoreConstants", "ToastService"];
     constructor(private AuthProvider: IAuthProvider,
+        private RequestProvider: IRequestProvider<User>,
         private GeoService: GeoService,
         private CoreConstants,
         private ToastService: ToastService) { }
@@ -31,6 +32,7 @@ export class AppService {
             };
             Object.assign(this.user, updates);
             Object.assign(this.user, new User(this.user));
+            this.RequestProvider.patch(`users/${this.AuthProvider.currentUser.id}`, updates);
         } else {
             return;
         }

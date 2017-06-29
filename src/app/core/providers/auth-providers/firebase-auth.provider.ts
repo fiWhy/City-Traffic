@@ -1,4 +1,5 @@
 import { IAuthResponse, IAuthProvider } from "./auth-providers.factory";
+import { FirebaseRequestProvider } from "../request-providers";
 import { User } from "../../entities/user";
 
 export interface IFirebaseAuthResponse extends IAuthResponse {
@@ -6,15 +7,22 @@ export interface IFirebaseAuthResponse extends IAuthResponse {
 }
 
 export class FirebaseAuthProvider implements IAuthProvider {
-    static $inject = ["$firebaseAuth", "$rootScope", "$filter"];
+    static $inject = ["$firebaseObject", "$firebaseArray", "$firebaseAuth", "RequestProvider", "$rootScope", "$filter"];
     public currentUser: User;
     public status: boolean = false;
     private auth: any;
     private connectedScope: ng.IScope;
+    private firebaseRef: any;
+    private firebaseUserArrayRef: any;
     constructor(
+        private $firebaseObject,
+        private $firebaseArray,
         private $firebaseAuth,
+        private RequestProvider: FirebaseRequestProvider<User>,
         private $rootScope: ng.IRootScopeService,
         private $filter) {
+        this.firebaseRef = this.prepareFirebaseRef();
+        this.firebaseUserArrayRef = this.$firebaseArray(this.firebaseRef.child("users"));
         this.auth = this.$firebaseAuth();
         this.registerListeners();
     }
@@ -28,7 +36,7 @@ export class FirebaseAuthProvider implements IAuthProvider {
         return this.auth.$signInWithPopup(authProvider)
             .then((result: IFirebaseAuthResponse) => {
                 if (result.credential) {
-                    const user = this.prepareUser(result.user);
+                    const user = this.createOrUpdateUserInFirebase(result.user);
                     return user;
                 } else {
                     throw result;
@@ -46,6 +54,34 @@ export class FirebaseAuthProvider implements IAuthProvider {
 
     getStatus() {
         return this.status;
+    }
+
+    private prepareFirebaseRef() {
+        return firebase.database().ref();
+    }
+
+    private createOrUpdateUserInFirebase(user: firebase.UserInfo) {
+        const userRef = this.$firebaseObject(this.firebaseRef.child("users"));
+        return this.getUserFromFirebase(user.uid).then((fbUser: User) => {
+            const preparedUser = new User(this.prepareUser(user));
+            if (!fbUser) {
+                userRef[preparedUser.providerId] = preparedUser;
+                userRef.$save();
+            }
+            return preparedUser;
+        });
+    }
+
+    private getUserFromFirebase(uid: string): Promise<User> {
+        return this.firebaseUserArrayRef.$loaded().then((data) => {
+            const record = data.$getRecord(uid);
+            if (record) {
+                this.RequestProvider.patch(`users/${uid}`, {
+                    lastLogin: new Date(),
+                });
+            };
+            return record;
+        });
     }
 
     private registerListeners() {
