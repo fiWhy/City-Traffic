@@ -5,6 +5,25 @@
     <nav-bar hide show-gt-sm></nav-bar>
     <span flex></span>
     <div flex="33">
-        Here will be our additional info
+        <span data-ng-if="TopBar.user" hide show-gt-sm ng-bind="TopBar.user.username"></span>
+        <md-button data-ng-if="!TopBar.user" class="md-fab md-mini" ng-click="TopBar.auth()" aria-label="Authorize">
+            <md-icon md-svg-icon="account-white"></md-icon>
+        </md-button>
+
+        <md-button data-ng-if="TopBar.user" class="md-fab md-mini" aria-label="{{ TopBar.user.username }}">
+            <img data-ng-if="TopBar.user" class="md-icon-png" data-ng-src="{{ TopBar.user.image }}" alt="{{ TopBar.user.username }}">
+        </md-button>
+        <md-button data-ng-if="TopBar.user" class="md-icon-button" aria-label="Settings" ng-click="TopBar.findCoordinates()">
+            <md-icon md-svg-icon="room-white"></md-icon>
+            <md-tooltip>
+                Find coordinates
+            </md-tooltip>
+        </md-button>
+        <md-button data-ng-if="TopBar.user" class="md-icon-button" ng-click="TopBar.signOut()" aria-label="Logout">
+            <md-icon md-svg-icon="cancel-white"></md-icon>
+            <md-tooltip>
+                Logout
+            </md-tooltip>
+        </md-button>
     </div>
 </div>

@@ -6,10 +6,10 @@ export class NavBarServiceImplementation {
     public registerItems(menuItems: IMenuItem[]) {
         this._menuItems = menuItems;
     }
-    
+
     public fetchMenuItems(): IMenuItem[] {
         return this._menuItems.sort((prev, next) => {
-              return prev.order - next.order;
+            return prev.order - next.order;
         });
     }
 }
