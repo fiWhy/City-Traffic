@@ -1,4 +1,7 @@
-import { Location } from "./location";
+export interface  ILocation {
+    lat: number;
+    lng: number;
+}
 
 export class Contribution {
     public startTime: Date;
@@ -16,7 +19,7 @@ export class Contribution {
         this.endPoint = this.preparePoint(endPoint);
         this.additional = additional ? additional.map((point) => this.prepareWayPoint(point)) : [];
     }
-    private prepareWayPoint(point: Location) {
+    private prepareWayPoint(point: ILocation) {
         return {
             location: {
                 lat: point.lat,
@@ -26,7 +29,7 @@ export class Contribution {
         };
     }
 
-    private preparePoint(location: Location) {
+    private preparePoint(location: ILocation) {
         return new google.maps.LatLng(location.lat, location.lng);
     }
 }

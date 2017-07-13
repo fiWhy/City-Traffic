@@ -32,7 +32,7 @@ export class MdGoogleAutocompleteService {
                 this.geocoderService.geocode({
                     placeId
                 }, (result: google.maps.GeocoderResult[], status: google.maps.GeocoderStatus) => {
-                    if (this.geocodeErrorStatuses.has(status)|| !result.length) {
+                    if (this.geocodeErrorStatuses.has(status) || !result.length) {
                         reject(result);
                     } else {
                         this.beforeFoundPlace = result[0];
@@ -42,7 +42,7 @@ export class MdGoogleAutocompleteService {
             } else {
                 resolve(this.beforeFoundPlace);
             }
-        })
+        });
     }
 
     private prepareSearchOptions(input: string,

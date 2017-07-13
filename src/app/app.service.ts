@@ -10,9 +10,13 @@ export class AppService {
         private CoreConstants,
         private ToastService: ToastService) { }
 
+    connect($scope: ng.IScope): Promise<boolean> {
+        return this.AuthProvider.connect($scope);
+    }
+
     findCoordinates() {
         return this.GeoService.getCurrentCoordinates()
-            .then((pos: Position) => this.GeoService.getCity(pos))
+            .then((pos: Position) => this.GeoService.getCity(pos));
     }
 
     saveCityToUser(city: google.maps.GeocoderResult) {

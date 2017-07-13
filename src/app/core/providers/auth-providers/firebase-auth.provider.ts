@@ -29,6 +29,9 @@ export class FirebaseAuthProvider implements IAuthProvider {
     }
 
     connect($scope: ng.IScope): Promise<boolean> {
+        const contribution = this.$firebaseObject(this.firebaseRef.child("contribution"));
+        this.connectedScope = $scope;
+        contribution.$bindTo($scope, "contribution");
         return Promise.resolve(true);
     }
 

@@ -1,6 +1,8 @@
+import { IAuthProvider } from "../../core/providers";
+
 export class DashboardController {
-    static $inject = [];
-    constructor() { }
+    static $inject = ["AuthProvider"];
+    constructor(private AuthProvider: IAuthProvider) { }
 }
 export const Dashboard = {
     selector: "dashboard",

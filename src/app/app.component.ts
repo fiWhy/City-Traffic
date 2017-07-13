@@ -11,7 +11,13 @@ export class AppController {
         private AppService: AppService,
         private ToastService: ToastService
     ) {
+        this.connectToServer();
         this.getCurrentCoordinates();
+    }
+
+
+    private connectToServer() {
+        this.AppService.connect(this.$rootScope);
     }
 
     private getCurrentCoordinates() {
