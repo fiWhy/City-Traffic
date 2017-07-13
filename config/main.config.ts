@@ -22,7 +22,7 @@ const configFnc = () => {
     const extensions = [".ts", ".tsx", ".js", ".scss", ".json", "css"];
 
 
-    const serverPort = process.env.PORT || 8181;
+    const serverPort = process.env.PORT || 3001;
     const ip = process.env.IP || "localhost";
 
     const cssPath = "/static/сss/";

@@ -7,6 +7,7 @@
         <div flex layout="row">  
             <md-google-autocomplete flex 
                                     place-change="Contributing.pointChanged('startPoint', place)" 
+                                    bounds="Contributing.AuthProvider.currentUser.location.bounds"
                                     required="true"
                                     on-error="Contributing.handleError(error)"
                                     ng-model="Contributing.contributeFormData.startPoint"
@@ -16,6 +17,7 @@
         <div class="additional-point-contributing" ng-repeat="point in Contributing.contributeFormData.additional track by $index" flex layout="row">
             <md-google-autocomplete flex 
                                     place-change="Contributing.pointChanged('additional', place)" 
+                                    bounds="Contributing.AuthProvider.currentUser.location.bounds"
                                     required="true"
                                     on-error="Contributing.handleError(error)"
                                     ng-model="Contributing.contributeFormData.additional[$index]">
@@ -36,6 +38,7 @@
 
         <div flex layout="row">   
              <md-google-autocomplete flex 
+                                    bounds="Contributing.AuthProvider.currentUser.location.bounds"
                                     place-change="Contributing.pointChanged('endPoint', place)" 
                                     required="true" 
                                     ng-model="Contributing.contributeFormData.endPoint"

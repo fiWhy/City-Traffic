@@ -24,6 +24,13 @@ export class GeoService {
         });
     }
 
+    public exportLatLng(location: google.maps.GeocoderResult) {
+        return {
+            lat: location.geometry.location.lat(),
+            lng: location.geometry.location.lng(),
+        };
+    }
+
     public getCity(pos: Position): Promise<google.maps.GeocoderResult> {
         const latLng = this.positionToLatLng(pos);
         return this.askGeocoder({ location: latLng }, ["administrative_area_level_1"])

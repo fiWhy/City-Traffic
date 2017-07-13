@@ -26,6 +26,25 @@ export class MdGoogleAutocompleteService {
         });
     }
 
+    public getLatLng(placeId: string): Promise<google.maps.GeocoderResult> {
+        return new Promise((resolve, reject) => {
+            if (!this.beforeFoundPlace || placeId !== this.beforeFoundPlace.place_id) {
+                this.geocoderService.geocode({
+                    placeId
+                }, (result: google.maps.GeocoderResult[], status: google.maps.GeocoderStatus) => {
+                    if (this.geocodeErrorStatuses.has(status)|| !result.length) {
+                        reject(result);
+                    } else {
+                        this.beforeFoundPlace = result[0];
+                        resolve(result[0]);
+                    }
+                });
+            } else {
+                resolve(this.beforeFoundPlace);
+            }
+        })
+    }
+
     private prepareSearchOptions(input: string,
         location: google.maps.LatLng,
         radius: number,

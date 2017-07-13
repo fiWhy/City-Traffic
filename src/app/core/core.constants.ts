@@ -8,6 +8,9 @@ export const coreConstants = () => {
         },
         "REQUEST": {
             "PROVIDER": FirebaseRequestProvider,
+            "ROUTES": {
+                "CONTRIBUTION": "contribution"
+            }
         }
     };
 

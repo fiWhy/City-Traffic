@@ -29,7 +29,26 @@ export class Contributing {
     }
 
     public contribute() {
+        this.validate(this.contributeFormData)
+            .then((data) => {
+                console.log("Contributing", data);
+                this.ContributingService.contribute(this.contributeFormData)
+                    .then(() => {
+                        this.$state.go("app.dashboard");
+                    });
+            }).catch(e => {
+                this.ToastService.showSimple(e);
+            });
+    }
 
+    private validate(data: IFormData): Promise<IFormData> {
+        return new Promise((resolve, reject) => {
+            if ((!data.startPoint || !data.startPoint.place_id) || (!data.endPoint || !data.endPoint.place_id)) {
+                reject("You need to pick google map item");
+            } else {
+                resolve(data);
+            }
+        });
     }
 
     private pointChanged(pointKey: string, point: google.maps.GeocoderResult) {

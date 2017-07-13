@@ -18,7 +18,11 @@ class MdGoogleAutocompleteController implements ng.IController {
     }
 
     private selectedItemChange() {
-        this.ngModel = this.selectedItem;
+        if (this.selectedItem) {
+            this.checkForLocation(this.selectedItem);
+        } else {
+            return;
+        }
     }
 
     private getQueryResults() {
@@ -44,13 +48,41 @@ class MdGoogleAutocompleteController implements ng.IController {
         }
     }
 
-      private adaptingAddresses(data: google.maps.places.QueryAutocompletePrediction[]): google.maps.places.QueryAutocompletePrediction[] {
+    private adaptingAddresses(data: google.maps.places.QueryAutocompletePrediction[]): google.maps.places.QueryAutocompletePrediction[] {
         return map(data, (result) => {
             return Object.assign({}, result, {
                 formatted_address: result.description
             });
         });
     }
+
+    private checkForLocation(selectedItem) {
+        this.MdGoogleAutocompleteService.getLatLng(selectedItem.place_id)
+            .then((place: google.maps.GeocoderResult) => {
+                if (this.checkLocation(place, this.bounds)) {
+                    this.ngModel = place;
+                    this.$timeout(() => {
+                        this.placeChange({ place });
+                    });
+                } else {
+                    this.onError({ error: "Location in wrong area!" });
+                }
+            }).catch((err) => {
+                console.log("Error", err);
+            });
+    }
+
+    private checkLocation(place: google.maps.GeocoderResult, bounds: google.maps.LatLngBounds) {
+        if (!bounds) {
+            return true;
+        } else {
+            return bounds.contains(place.geometry.location);
+        }
+    }
+
+    public placeChange({ place }) { }
+
+    public onError({ error }) { }
 
 }
 
